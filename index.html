@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simulateur Crédit Immobilier 2026 — Calculez vos Mensualités Gratuitement | CalcImmo</title>
+  <meta name="description" content="Simulez votre crédit immobilier en 30 secondes : mensualités, coût total, tableau d'amortissement. Comparez les offres de toutes les banques. 100% gratuit, sans inscription."/>
+  <meta name="keywords" content="simulateur crédit immobilier, calculateur mensualités, calculer prêt immobilier, taux crédit immobilier 2026, comparateur banque immobilier, tableau amortissement"/>
+  <meta property="og:title" content="Simulateur Crédit Immobilier Gratuit 2026 — CalcImmo"/>
+  <meta property="og:description" content="Calculez vos mensualités et comparez les offres des banques en quelques secondes."/>
+  <meta property="og:type" content="website"/>
+  <link rel="canonical" href="https://calcimmo.fr/"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <!-- JSON-LD Structured Data pour Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "CalcImmo — Simulateur Crédit Immobilier",
+    "description": "Calculez vos mensualités de crédit immobilier et comparez les offres des banques gratuitement.",
+    "url": "https://calcimmo.fr",
+    "applicationCategory": "FinanceApplication",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "featureList": ["Calcul de mensualités", "Tableau d'amortissement", "Comparateur de banques", "Export PDF"]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f0e0c; --cream: #f5f0e8; --gold: #c9a84c; --gold-light: #e8d5a0;
+      --rust: #b5451b; --sage: #4a6741; --paper: #faf7f2; --border: #d4c9b5;
+      --shadow: rgba(15,14,12,0.12);
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; overflow-x: hidden; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.08) 0%, transparent 60%), radial-gradient(ellipse at 80% 80%, rgba(181,69,27,0.06) 0%, transparent 60%);
+      pointer-events: none; z-index: 0;
+    }
+    header {
+      position: relative; z-index: 10; padding: 1.2rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border); background: rgba(245,240,232,0.9); backdrop-filter: blur(10px);
+    }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; }
+    .logo span { color: var(--gold); }
+    .badge { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold-light); padding: 0.3rem 0.8rem; border-radius: 100px; }
+    .nav-tabs { position: relative; z-index: 9; display: flex; border-bottom: 2px solid var(--border); background: rgba(245,240,232,0.8); padding: 0 3rem; }
+    .nav-tab { padding: 0.9rem 1.5rem; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; background: transparent; border: none; cursor: pointer; color: #8a7f72; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+    .nav-tab.active { color: var(--ink); border-bottom-color: var(--ink); }
+    .nav-tab:hover:not(.active) { color: var(--ink); }
+    .hero { position: relative; z-index: 5; text-align: center; padding: 3rem 2rem 1.5rem; animation: fadeUp 0.8s ease both; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 900; line-height: 1.1; margin-bottom: 0.8rem; }
+    .hero h1 em { font-style: italic; color: var(--gold); }
+    .hero p { font-size: 0.95rem; color: #6b6456; font-weight: 300; max-width: 480px; margin: 0 auto; line-height: 1.7; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .container { position: relative; z-index: 5; max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    .container.full { grid-template-columns: 1fr; }
+    @media (max-width: 768px) { .container { grid-template-columns: 1fr; } header, .nav-tabs { padding-left: 1.5rem; padding-right: 1.5rem; } }
+    .card { background: var(--paper); border: 1px solid var(--border); border-radius: 2px; padding: 2rem; box-shadow: 0 4px 24px var(--shadow), 0 1px 4px var(--shadow); animation: fadeUp 0.8s ease both; }
+    .card:nth-child(2) { animation-delay: 0.1s; }
+    .card-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.5rem; }
+    .card-title .dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; display: inline-block; }
+    .card-subtitle { font-size: 0.78rem; color: #8a7f72; margin-bottom: 1.8rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .tabs { display: flex; margin-bottom: 2rem; border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+    .tab { flex: 1; padding: 0.65rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.04em; background: transparent; border: none; cursor: pointer; color: #8a7f72; transition: all 0.2s; text-transform: uppercase; }
+    .tab.active { background: var(--ink); color: var(--cream); }
+    .tab:hover:not(.active) { background: var(--border); }
+    .field { margin-bottom: 1.4rem; }
+    label { display: block; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6456; margin-bottom: 0.5rem; }
+    .input-wrap { position: relative; display: flex; align-items: center; }
+    input[type="number"] { width: 100%; background: white; border: 1px solid var(--border); border-radius: 2px; padding: 0.7rem 3rem 0.7rem 1rem; font-size: 1rem; font-weight: 400; color: var(--ink); font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.2s; -moz-appearance: textfield; }
+    input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+    input[type="number"]:focus { border-color: var(--gold); }
+    input[type="range"] { width: 100%; -webkit-appearance: none; height: 3px; background: var(--border); border-radius: 10px; margin-top: 0.5rem; cursor: pointer; }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; background: var(--ink); border-radius: 50%; border: 3px solid var(--cream); box-shadow: 0 0 0 1px var(--ink); cursor: pointer; }
+    .unit { position: absolute; right: 0.8rem; font-size: 0.85rem; color: #8a7f72; font-weight: 500; pointer-events: none; }
+    .range-labels { display: flex; justify-content: space-between; font-size: 0.7rem; color: #a09485; margin-top: 0.3rem; }
+    .btn-row { display: flex; gap: 0.8rem; margin-top: 0.5rem; }
+    .compute-btn, .export-btn { flex: 1; padding: 1rem; border: none; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
+    .compute-btn { background: var(--ink); color: var(--cream); }
+    .compute-btn::after { content: ''; position: absolute; inset: 0; background: var(--gold); transform: translateX(-101%); transition: transform 0.3s ease; }
+    .compute-btn:hover::after { transform: translateX(0); }
+    .export-btn { background: white; color: var(--ink); border: 1px solid var(--border); }
+    .export-btn:hover { background: var(--cream); }
+    .compute-btn span, .export-btn span { position: relative; z-index: 1; }
+    .result-hero { background: var(--ink); color: var(--cream); border-radius: 2px; padding: 1.8rem; margin-bottom: 1.5rem; text-align: center; position: relative; overflow: hidden; }
+    .result-hero::before { content: ''; position: absolute; top: -40px; right: -40px; width: 120px; height: 120px; border-radius: 50%; border: 1px solid rgba(201,168,76,0.3); }
+    .result-hero::after { content: ''; position: absolute; bottom: -60px; left: -20px; width: 160px; height: 160px; border-radius: 50%; border: 1px solid rgba(201,168,76,0.15); }
+    .result-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 0.4rem; }
+    .result-main { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; line-height: 1; margin-bottom: 0.2rem; }
+    .result-sub { font-size: 0.82rem; color: rgba(245,240,232,0.6); }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+    .stat-box { background: white; border: 1px solid var(--border); border-radius: 2px; padding: 1rem; }
+    .stat-box .s-label { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #8a7f72; margin-bottom: 0.3rem; }
+    .stat-box .s-val { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; }
+    .stat-box.danger .s-val { color: var(--rust); }
+    .stat-box.good .s-val { color: var(--sage); }
+    .chart-section { margin-bottom: 1.5rem; }
+    .chart-title { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #6b6456; margin-bottom: 0.8rem; font-weight: 500; }
+    .bar-track { height: 10px; background: var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 0.5rem; }
+    .bar-fill { height: 100%; border-radius: 10px; transition: width 0.8s cubic-bezier(0.4,0,0.2,1); }
+    .bar-fill.capital { background: var(--ink); }
+    .bar-fill.interest { background: var(--gold); }
+    .bar-fill.insurance { background: var(--rust); }
+    .table-section summary { cursor: pointer; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6456; padding: 0.8rem 0; border-top: 1px solid var(--border); list-style: none; display: flex; align-items: center; justify-content: space-between; }
+    .table-section summary::after { content: '↓'; transition: transform 0.2s; }
+    .table-section[open] summary::after { transform: rotate(180deg); }
+    table { width: 100%; border-collapse: collapse; margin-top: 0.8rem; font-size: 0.8rem; }
+    th { text-align: left; padding: 0.5rem 0.6rem; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #8a7f72; border-bottom: 1px solid var(--border); }
+    td { padding: 0.5rem 0.6rem; border-bottom: 1px solid rgba(212,201,181,0.4); }
+    tr:hover td { background: rgba(201,168,76,0.05); }
+    .ad-placeholder { background: white; border: 1px dashed var(--border); border-radius: 2px; padding: 1.5rem; text-align: center; color: #a09485; font-size: 0.75rem; letter-spacing: 0.05em; margin-top: 1.5rem; }
+    .ad-placeholder strong { display: block; margin-bottom: 0.3rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .placeholder-state { text-align: center; padding: 3rem 1rem; color: #a09485; }
+    .placeholder-state .icon { font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.4; }
+    .placeholder-state p { font-size: 0.9rem; line-height: 1.6; }
+
+    /* COMPARATEUR */
+    .comp-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+    .add-bank-btn { padding: 0.5rem 1.2rem; background: white; border: 1px solid var(--border); border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; color: var(--ink); }
+    .add-bank-btn:hover { background: var(--ink); color: var(--cream); }
+    .banks-list { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+    .bank-row { background: white; border: 1px solid var(--border); border-radius: 2px; padding: 1.2rem 1.4rem; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 0.8rem; align-items: end; animation: fadeUp 0.3s ease both; }
+    @media (max-width: 900px) { .bank-row { grid-template-columns: 1fr 1fr; } }
+    .b-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #8a7f72; margin-bottom: 0.4rem; }
+    .bank-input { width: 100%; background: var(--cream); border: 1px solid var(--border); border-radius: 2px; padding: 0.55rem 0.7rem; font-size: 0.9rem; font-family: 'DM Sans', sans-serif; color: var(--ink); outline: none; transition: border-color 0.2s; -moz-appearance: textfield; }
+    .bank-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+    .bank-input:focus { border-color: var(--gold); background: white; }
+    .del-bank { background: none; border: none; cursor: pointer; color: #a09485; font-size: 1.4rem; padding: 0.3rem 0.5rem; transition: color 0.2s; line-height: 1; align-self: center; }
+    .del-bank:hover { color: var(--rust); }
+    .comp-results { overflow-x: auto; margin-bottom: 1.5rem; }
+    .comp-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .comp-table th { text-align: left; padding: 0.8rem 1rem; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #8a7f72; border-bottom: 2px solid var(--border); white-space: nowrap; }
+    .comp-table td { padding: 0.9rem 1rem; border-bottom: 1px solid rgba(212,201,181,0.4); vertical-align: middle; }
+    .comp-table tr:hover td { background: rgba(201,168,76,0.04); }
+    .bank-color { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 0.5rem; }
+    .best-badge { display: inline-block; background: var(--sage); color: white; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.15rem 0.5rem; border-radius: 100px; margin-left: 0.4rem; }
+    .val-good { color: var(--sage); font-weight: 600; }
+    .val-bad  { color: var(--rust); }
+    .comp-chart { margin-top: 1.5rem; }
+    .comp-bar-row { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; }
+    .comp-bar-label { width: 130px; font-size: 0.78rem; color: #6b6456; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0; }
+    .comp-bar-track { flex: 1; height: 28px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    .comp-bar-fill { height: 100%; border-radius: 2px; transition: width 0.9s cubic-bezier(0.4,0,0.2,1); display: flex; align-items: center; padding-left: 0.6rem; }
+    .comp-bar-fill span { font-size: 0.72rem; color: white; font-weight: 500; white-space: nowrap; }
+
+    /* ===== CONTENU SEO ===== */
+    .seo-section {
+      position: relative; z-index: 5;
+      max-width: 860px; margin: 0 auto; padding: 0 1.5rem 5rem;
+    }
+
+    .seo-intro {
+      background: var(--paper); border: 1px solid var(--border); border-radius: 2px;
+      padding: 2.5rem; margin-bottom: 2rem;
+      box-shadow: 0 2px 12px var(--shadow);
+      animation: fadeUp 0.8s ease 0.2s both;
+    }
+
+    .seo-intro p { font-size: 1rem; line-height: 1.85; color: #3d3830; margin-bottom: 1rem; }
+    .seo-intro p:last-child { margin-bottom: 0; }
+
+    .seo-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.5rem; margin-bottom: 2rem;
+      animation: fadeUp 0.8s ease 0.3s both;
+    }
+
+    @media (max-width: 640px) { .seo-grid { grid-template-columns: 1fr; } }
+
+    .seo-box {
+      background: var(--paper); border: 1px solid var(--border); border-radius: 2px;
+      padding: 1.8rem; box-shadow: 0 2px 12px var(--shadow);
+    }
+
+    .seo-box h2 {
+      font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700;
+      margin-bottom: 1rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    .seo-box ul { list-style: none; padding: 0; }
+    .seo-box ul li { padding: 0.5rem 0; border-bottom: 1px solid rgba(212,201,181,0.3); font-size: 0.9rem; line-height: 1.5; color: #3d3830; display: flex; gap: 0.6rem; align-items: flex-start; }
+    .seo-box ul li:last-child { border-bottom: none; }
+    .seo-box ul li::before { content: '→'; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 0.05rem; }
+
+    .seo-box p { font-size: 0.9rem; line-height: 1.7; color: #3d3830; margin-bottom: 0.8rem; }
+    .seo-box p:last-child { margin-bottom: 0; }
+
+    .seo-article {
+      background: var(--paper); border: 1px solid var(--border); border-radius: 2px;
+      padding: 2.5rem; margin-bottom: 2rem;
+      box-shadow: 0 2px 12px var(--shadow);
+      animation: fadeUp 0.8s ease 0.4s both;
+    }
+
+    .seo-article h2 {
+      font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700;
+      margin-bottom: 0.8rem; margin-top: 2rem; color: var(--ink);
+    }
+
+    .seo-article h2:first-child { margin-top: 0; }
+
+    .seo-article h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700;
+      margin-bottom: 0.6rem; margin-top: 1.5rem; color: var(--ink);
+    }
+
+    .seo-article p { font-size: 0.95rem; line-height: 1.85; color: #3d3830; margin-bottom: 1rem; }
+
+    .seo-article .highlight-box {
+      background: rgba(201,168,76,0.08); border-left: 3px solid var(--gold);
+      padding: 1rem 1.2rem; margin: 1.2rem 0; border-radius: 0 2px 2px 0;
+    }
+
+    .seo-article .highlight-box p { margin-bottom: 0; font-size: 0.9rem; color: #5a5040; }
+
+    .taux-table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: 0.88rem; }
+    .taux-table th { background: var(--ink); color: var(--cream); padding: 0.7rem 1rem; text-align: left; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; }
+    .taux-table td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--border); color: #3d3830; }
+    .taux-table tr:nth-child(even) td { background: rgba(212,201,181,0.15); }
+
+    .faq-section { margin-bottom: 2rem; animation: fadeUp 0.8s ease 0.5s both; }
+    .faq-section h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 1.2rem; }
+
+    .faq-item { background: var(--paper); border: 1px solid var(--border); border-radius: 2px; margin-bottom: 0.8rem; overflow: hidden; box-shadow: 0 1px 6px var(--shadow); }
+    .faq-q { width: 100%; background: none; border: none; padding: 1.2rem 1.5rem; text-align: left; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500; color: var(--ink); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .faq-q::after { content: '+'; font-size: 1.3rem; color: var(--gold); flex-shrink: 0; transition: transform 0.2s; }
+    .faq-item.open .faq-q::after { transform: rotate(45deg); }
+    .faq-a { display: none; padding: 0 1.5rem 1.2rem; font-size: 0.9rem; line-height: 1.75; color: #3d3830; border-top: 1px solid var(--border); padding-top: 1rem; }
+    .faq-item.open .faq-a { display: block; }
+
+    .trust-bar {
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+      padding: 1.5rem; background: var(--paper); border: 1px solid var(--border);
+      border-radius: 2px; margin-bottom: 2rem; box-shadow: 0 2px 12px var(--shadow);
+      animation: fadeUp 0.8s ease 0.15s both;
+    }
+
+    .trust-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: #6b6456; font-weight: 500; }
+    .trust-item .t-icon { font-size: 1.2rem; }
+
+    footer {
+      position: relative; z-index: 5;
+      background: var(--ink); color: rgba(245,240,232,0.7);
+      padding: 2rem 3rem; text-align: center; font-size: 0.8rem; line-height: 1.8;
+    }
+
+    footer a { color: var(--gold-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    footer strong { color: var(--cream); }
+
+    @media print {
+      body::before { display: none; }
+      header { background: white; backdrop-filter: none; }
+      .nav-tabs, .ad-placeholder, .btn-row, .add-bank-btn, .del-bank, .seo-section, footer { display: none !important; }
+      .card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+      .container { display: block; }
+      .card + .card { margin-top: 1.5rem; }
+      .page { display: block !important; }
+      details { display: block; }
+      summary { display: none; }
+    }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .results-appear { animation: fadeUp 0.5s ease both; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Calc<span>Immo</span></div>
+  <div class="badge">Simulateur gratuit</div>
+</header>
+
+<nav class="nav-tabs">
+  <button class="nav-tab active" onclick="showPage('simulateur', this)">📊 Simulateur</button>
+  <button class="nav-tab" onclick="showPage('comparateur', this)">🏦 Comparateur</button>
+</nav>
+
+<!-- ===== PAGE SIMULATEUR ===== -->
+<div id="page-simulateur" class="page active">
+  <div class="hero">
+    <h1>Simulateur de<br><em>crédit immobilier</em> 2026</h1>
+    <p>Calculez vos mensualités, le coût total de votre prêt et votre tableau d'amortissement en quelques secondes.</p>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <div class="card-title"><span class="dot"></span> Paramètres du prêt</div>
+      <div class="card-subtitle">Renseignez vos informations</div>
+      <div class="tabs">
+        <button class="tab active" onclick="setTab('immo',this)">Immobilier</button>
+        <button class="tab" onclick="setTab('conso',this)">Consommation</button>
+        <button class="tab" onclick="setTab('auto',this)">Auto</button>
+      </div>
+      <div class="field">
+        <label>Montant emprunté</label>
+        <div class="input-wrap"><input type="number" id="montant" value="200000" min="1000" max="2000000" step="1000" oninput="syncRange('montant','rMontant')"/><span class="unit">€</span></div>
+        <input type="range" id="rMontant" min="10000" max="1000000" step="5000" value="200000" oninput="syncInput('rMontant','montant')"/>
+        <div class="range-labels"><span>10 000 €</span><span>1 000 000 €</span></div>
+      </div>
+      <div class="field">
+        <label>Durée du prêt</label>
+        <div class="input-wrap"><input type="number" id="duree" value="20" min="1" max="30" oninput="syncRange('duree','rDuree')"/><span class="unit">ans</span></div>
+        <input type="range" id="rDuree" min="1" max="30" step="1" value="20" oninput="syncInput('rDuree','duree')"/>
+        <div class="range-labels"><span>1 an</span><span>30 ans</span></div>
+      </div>
+      <div class="field">
+        <label>Taux d'intérêt annuel</label>
+        <div class="input-wrap"><input type="number" id="taux" value="3.5" min="0.1" max="15" step="0.05" oninput="syncRange('taux','rTaux')"/><span class="unit">%</span></div>
+        <input type="range" id="rTaux" min="0.5" max="8" step="0.05" value="3.5" oninput="syncInput('rTaux','taux')"/>
+        <div class="range-labels"><span>0,5 %</span><span>8 %</span></div>
+      </div>
+      <div class="field">
+        <label>Assurance mensuelle (optionnel)</label>
+        <div class="input-wrap"><input type="number" id="assurance" value="30" min="0" max="500" step="5"/><span class="unit">€</span></div>
+      </div>
+      <div class="field">
+        <label>Apport personnel</label>
+        <div class="input-wrap"><input type="number" id="apport" value="40000" min="0" max="500000" step="1000"/><span class="unit">€</span></div>
+      </div>
+      <div class="btn-row">
+        <button class="compute-btn" onclick="calculate()"><span>Calculer →</span></button>
+        <button class="export-btn hidden" id="exportBtn" onclick="exportPDF()"><span>📄 Export PDF</span></button>
+      </div>
+      <div class="ad-placeholder"><strong>Publicité</strong>Espace Google AdSense 300×250</div>
+    </div>
+
+    <div class="card">
+      <div id="placeholderState" class="placeholder-state">
+        <div class="icon">🏦</div>
+        <p>Renseignez vos paramètres et cliquez sur <strong>Calculer</strong> pour voir votre simulation.</p>
+      </div>
+      <div id="resultsContent" class="hidden">
+        <div class="result-hero results-appear">
+          <div class="result-label">Mensualité totale</div>
+          <div class="result-main" id="rMensualite">—</div>
+          <div class="result-sub">dont <span id="rMensualiteHors">—</span> hors assurance</div>
+        </div>
+        <div class="stats-grid results-appear">
+          <div class="stat-box"><div class="s-label">Coût total</div><div class="s-val" id="rCoutTotal">—</div></div>
+          <div class="stat-box danger"><div class="s-label">Total intérêts</div><div class="s-val" id="rInterets">—</div></div>
+          <div class="stat-box good"><div class="s-label">Capital net</div><div class="s-val" id="rCapital">—</div></div>
+          <div class="stat-box"><div class="s-label">Taux effectif global</div><div class="s-val" id="rTEG">—</div></div>
+        </div>
+        <div class="chart-section results-appear">
+          <div class="chart-title">Répartition du coût total</div>
+          <div style="display:flex;flex-direction:column;gap:0.6rem;">
+            <div><div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:0.3rem;"><span>Capital</span><span id="pCapital">—</span></div><div class="bar-track"><div class="bar-fill capital" id="bCapital" style="width:0%"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:0.3rem;"><span>Intérêts</span><span id="pInterets">—</span></div><div class="bar-track"><div class="bar-fill interest" id="bInterets" style="width:0%"></div></div></div>
+            <div id="assuranceRow"><div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:0.3rem;"><span>Assurance</span><span id="pAssurance">—</span></div><div class="bar-track"><div class="bar-fill insurance" id="bAssurance" style="width:0%"></div></div></div>
+          </div>
+        </div>
+        <details class="table-section">
+          <summary>Tableau d'amortissement annuel</summary>
+          <div style="overflow-x:auto;max-height:320px;overflow-y:auto;">
+            <table><thead><tr><th>Année</th><th>Mensualité</th><th>Capital</th><th>Intérêts</th><th>Restant dû</th></tr></thead><tbody id="amortTable"></tbody></table>
+          </div>
+        </details>
+        <div class="ad-placeholder" style="margin-top:1.2rem;"><strong>Publicité</strong>Espace Google AdSense 300×250</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CONTENU SEO ===== -->
+  <div class="seo-section">
+
+    <!-- Barre de confiance -->
+    <div class="trust-bar">
+      <div class="trust-item"><span class="t-icon">✅</span> 100% gratuit, sans inscription</div>
+      <div class="trust-item"><span class="t-icon">🔒</span> Aucune donnée collectée</div>
+      <div class="trust-item"><span class="t-icon">⚡</span> Calcul instantané</div>
+      <div class="trust-item"><span class="t-icon">📄</span> Export PDF inclus</div>
+      <div class="trust-item"><span class="t-icon">🏦</span> Comparateur multi-banques</div>
+    </div>
+
+    <!-- Intro -->
+    <div class="seo-intro">
+      <p>Notre <strong>simulateur de crédit immobilier</strong> vous permet de calculer en quelques secondes le montant de vos mensualités, le coût total de votre prêt et de visualiser votre tableau d'amortissement complet. Que vous envisagiez un premier achat, un investissement locatif ou un rachat de crédit, cet outil gratuit vous donne toutes les clés pour négocier avec votre banque.</p>
+      <p>En 2026, les taux de crédit immobilier se stabilisent après deux années de hausse. C'est le bon moment pour simuler votre projet et comparer les offres disponibles sur le marché. Notre comparateur intégré vous permet de mettre jusqu'à 7 banques en concurrence pour identifier l'offre la plus avantageuse.</p>
+    </div>
+
+    <!-- Grille d'infos -->
+    <div class="seo-grid">
+      <div class="seo-box">
+        <h2>🧮 Comment utiliser ce simulateur</h2>
+        <ul>
+          <li>Entrez le <strong>montant total</strong> de votre achat immobilier</li>
+          <li>Indiquez votre <strong>apport personnel</strong> — le capital emprunté se calcule automatiquement</li>
+          <li>Renseignez la <strong>durée souhaitée</strong> (en années) et le <strong>taux proposé</strong> par votre banque</li>
+          <li>Ajoutez votre <strong>assurance mensuelle</strong> pour connaître votre mensualité réelle</li>
+          <li>Consultez le <strong>tableau d'amortissement</strong> pour voir l'évolution année par année</li>
+          <li>Utilisez le <strong>comparateur</strong> pour mettre plusieurs banques en concurrence</li>
+        </ul>
+      </div>
+      <div class="seo-box">
+        <h2>💡 Conseils pour votre dossier</h2>
+        <ul>
+          <li>Un <strong>apport d'au moins 10%</strong> est généralement requis par les banques françaises en 2026</li>
+          <li>Votre <strong>taux d'endettement</strong> ne doit pas dépasser 35% de vos revenus nets</li>
+          <li>Comparez le <strong>TAEG</strong> (Taux Annuel Effectif Global) et pas seulement le taux nominal</li>
+          <li>N'oubliez pas les <strong>frais de notaire</strong> : environ 7-8% dans l'ancien, 2-3% dans le neuf</li>
+          <li>Faites jouer la concurrence : un écart de 0,3% sur 20 ans représente plusieurs milliers d'euros</li>
+          <li>Demandez une <strong>simulation sans frais</strong> à plusieurs banques avant de vous engager</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Article SEO -->
+    <div class="seo-article">
+      <h2>Comprendre votre crédit immobilier en 2026</h2>
+
+      <p>Obtenir un crédit immobilier est l'étape la plus déterminante de votre projet d'achat. Les taux, la durée et le montant de l'assurance emprunteur influencent directement vos mensualités et le coût total de votre financement sur des dizaines d'années. Comprendre ces mécanismes vous permet de négocier plus efficacement et de choisir la meilleure offre.</p>
+
+      <h3>Quels sont les taux immobiliers en 2026 ?</h3>
+      <p>Après la forte hausse observée entre 2022 et 2024, les taux de crédit immobilier se sont progressivement stabilisés. En mai 2026, les taux moyens constatés selon les durées sont les suivants :</p>
+
+      <table class="taux-table">
+        <thead><tr><th>Durée</th><th>Taux moyen</th><th>Taux excellent dossier</th><th>Taux dossier standard</th></tr></thead>
+        <tbody>
+          <tr><td>10 ans</td><td>2,85 %</td><td>2,40 %</td><td>3,20 %</td></tr>
+          <tr><td>15 ans</td><td>3,10 %</td><td>2,65 %</td><td>3,50 %</td></tr>
+          <tr><td>20 ans</td><td>3,35 %</td><td>2,90 %</td><td>3,75 %</td></tr>
+          <tr><td>25 ans</td><td>3,55 %</td><td>3,10 %</td><td>3,95 %</td></tr>
+        </tbody>
+      </table>
+
+      <div class="highlight-box">
+        <p><strong>Astuce :</strong> Ces taux sont des moyennes indicatives. Votre profil emprunteur (revenus stables, apport élevé, absence d'incidents bancaires) peut vous permettre d'obtenir un taux nettement inférieur à la moyenne. Utilisez notre comparateur pour simuler l'impact d'un meilleur taux sur votre mensualité.</p>
+      </div>
+
+      <h3>Comment est calculée votre mensualité ?</h3>
+      <p>La mensualité d'un crédit immobilier à taux fixe se calcule à partir d'une formule mathématique précise qui prend en compte trois variables : le capital emprunté (montant total moins l'apport), le taux d'intérêt mensuel (taux annuel divisé par 12) et la durée totale en mois. Le résultat donne une mensualité constante tout au long du crédit, mais la répartition entre capital remboursé et intérêts évolue : au début du prêt, vous remboursez surtout des intérêts, puis de plus en plus de capital au fil des années. C'est ce qu'illustre le tableau d'amortissement.</p>
+
+      <h3>Quelle durée choisir pour votre prêt ?</h3>
+      <p>La durée du crédit est un choix stratégique qui influence directement deux paramètres contradictoires : une durée plus longue réduit vos mensualités mais augmente le coût total du crédit (vous payez plus d'intérêts), tandis qu'une durée courte augmente vos mensualités mais diminue le coût global. En pratique, la durée est souvent contrainte par votre capacité de remboursement mensuelle. La règle des 35% d'endettement maximum fixée par le Haut Conseil de Stabilité Financière (HCSF) s'applique à l'ensemble de vos crédits, assurance incluse.</p>
+
+      <h3>L'assurance emprunteur : un coût souvent sous-estimé</h3>
+      <p>L'assurance emprunteur peut représenter jusqu'à 30% du coût total de votre crédit, selon votre âge et votre état de santé. Depuis la loi Lemoine de 2022, vous pouvez changer d'assurance emprunteur à tout moment, sans frais, sans attendre l'échéance anniversaire. Cette délégation d'assurance peut vous faire économiser plusieurs milliers d'euros sur la durée totale du prêt. Utilisez le champ "assurance mensuelle" de notre simulateur pour comparer l'impact de différentes offres d'assurance sur votre mensualité réelle.</p>
+
+      <h3>Pourquoi comparer plusieurs banques ?</h3>
+      <p>Un écart de 0,3 point sur le taux d'intérêt d'un prêt de 200 000 € sur 20 ans représente une économie d'environ 6 000 € sur la durée totale du crédit. Faire jouer la concurrence entre établissements bancaires est donc essentiel. Outre le taux nominal, comparez également les frais de dossier (pouvant aller de 0 à 1 500 €), les conditions de remboursement anticipé et la modularité des mensualités. Notre comparateur intégré vous permet de visualiser d'un seul coup d'œil quelle banque vous propose la meilleure offre globale.</p>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-section">
+      <h2>Questions fréquentes</h2>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Combien puis-je emprunter avec mon salaire ?</button>
+        <div class="faq-a">La règle générale est que vos mensualités de crédit ne doivent pas dépasser 35% de vos revenus nets mensuels (assurance comprise). Par exemple, avec un salaire net de 3 000 €, votre mensualité maximale est de 1 050 €. Pour estimer votre capacité d'emprunt, divisez cette mensualité maximale par le coefficient correspondant à votre taux et votre durée, que notre simulateur calcule automatiquement.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Quel apport minimum faut-il pour emprunter en 2026 ?</button>
+        <div class="faq-a">En 2026, les banques françaises exigent généralement un apport d'au moins 10% du prix d'achat pour couvrir les frais de notaire et de garantie. Un apport de 20 à 30% vous permet d'obtenir un meilleur taux et d'être prioritaire dans les dossiers. Certains profils (primo-accédants, fonctionnaires) peuvent emprunter avec un apport plus faible grâce à des dispositifs spécifiques comme le Prêt à Taux Zéro (PTZ).</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Quelle est la différence entre taux nominal et TAEG ?</button>
+        <div class="faq-a">Le taux nominal est le taux d'intérêt pur appliqué à votre capital. Le TAEG (Taux Annuel Effectif Global) inclut en plus tous les frais obligatoires : assurance emprunteur, frais de dossier, garantie (caution ou hypothèque). C'est le TAEG qui permet de comparer réellement deux offres entre elles, car il reflète le coût global du crédit. Toujours exiger le TAEG de votre banque lors de la négociation.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Peut-on rembourser son crédit par anticipation ?</button>
+        <div class="faq-a">Oui, tout emprunteur peut rembourser son crédit par anticipation, partiellement ou en totalité. Cependant, la banque peut réclamer des indemnités de remboursement anticipé (IRA), plafonnées par la loi à 6 mois d'intérêts ou 3% du capital restant dû. Ces pénalités sont souvent négociables lors de la signature du prêt. Si vous envisagez de revendre rapidement ou de recevoir un héritage, négociez la suppression de ces pénalités dès le départ.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Comment exporter ma simulation en PDF ?</button>
+        <div class="faq-a">Après avoir cliqué sur "Calculer", un bouton "Export PDF" apparaît à côté du bouton de calcul. Un clic déclenche l'impression de la page dans votre navigateur. Sélectionnez "Enregistrer en PDF" comme imprimante pour obtenir un fichier PDF propre de votre simulation, prêt à être partagé avec votre banquier ou un courtier.</div>
+      </div>
+    </div>
+
+    <div class="ad-placeholder" style="padding: 2rem;">
+      <strong>Publicité</strong>
+      Espace Google AdSense 728×90 — Annonces de crédit immobilier (CPM élevé)
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE COMPARATEUR ===== -->
+<div id="page-comparateur" class="page">
+  <div class="hero">
+    <h1>Comparez les<br><em>offres de crédit</em></h1>
+    <p>Ajoutez plusieurs banques et trouvez instantanément la meilleure offre pour votre projet.</p>
+  </div>
+  <div class="container full">
+    <div class="card">
+      <div class="card-title"><span class="dot"></span> Paramètres communs</div>
+      <div class="card-subtitle">Même montant et durée pour toutes les banques</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:2rem;">
+        <div class="field" style="margin-bottom:0"><label>Montant emprunté</label><div class="input-wrap"><input type="number" id="cMontant" value="200000" min="1000" step="1000"/><span class="unit">€</span></div></div>
+        <div class="field" style="margin-bottom:0"><label>Durée (ans)</label><div class="input-wrap"><input type="number" id="cDuree" value="20" min="1" max="30"/><span class="unit">ans</span></div></div>
+        <div class="field" style="margin-bottom:0"><label>Assurance / mois</label><div class="input-wrap"><input type="number" id="cAssurance" value="30" min="0" step="5"/><span class="unit">€</span></div></div>
+      </div>
+      <div class="comp-header">
+        <div>
+          <div class="card-title" style="margin-bottom:0.2rem;"><span class="dot"></span> Banques à comparer</div>
+          <div class="card-subtitle" style="margin-bottom:0">Taux et frais de chaque établissement</div>
+        </div>
+        <button class="add-bank-btn" onclick="addBank()">+ Ajouter une banque</button>
+      </div>
+      <div class="banks-list" id="banksList"></div>
+      <div class="btn-row">
+        <button class="compute-btn" onclick="compare()"><span>Comparer →</span></button>
+        <button class="export-btn hidden" id="compExportBtn" onclick="exportPDF()"><span>📄 Export PDF</span></button>
+      </div>
+    </div>
+    <div class="card hidden" id="compResults">
+      <div class="card-title" style="margin-bottom:0.3rem;"><span class="dot"></span> Résultats de la comparaison</div>
+      <div class="card-subtitle">Classement du moins cher au plus cher</div>
+      <div class="comp-results"><table class="comp-table"><thead><tr><th>#</th><th>Banque</th><th>Taux</th><th>Mensualité</th><th>Total intérêts</th><th>Coût total</th><th>Économie vs le pire</th></tr></thead><tbody id="compTableBody"></tbody></table></div>
+      <div class="comp-chart"><div class="chart-title">Coût total par banque</div><div id="compBars"></div></div>
+      <div class="ad-placeholder" style="margin-top:1.5rem;"><strong>Publicité</strong>Espace Google AdSense 728×90</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <strong>CalcImmo</strong> — Simulateur de crédit immobilier gratuit<br>
+  Les simulations fournies sont indicatives et n'ont pas valeur d'offre de crédit. Consultez un conseiller financier pour votre projet.<br>
+  <span style="margin-top:0.5rem;display:inline-block;">
+    <a href="#">Mentions légales</a> · <a href="#">Politique de confidentialité</a> · <a href="#">Contact</a>
+  </span>
+</footer>
+
+<script>
+  function fmt(n) { return new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n); }
+  function fmtPct(n) { return n.toFixed(2).replace('.',',') + ' %'; }
+  function syncRange(i,r) { const v=parseFloat(document.getElementById(i).value); if(!isNaN(v)) document.getElementById(r).value=v; }
+  function syncInput(r,i) { document.getElementById(i).value=document.getElementById(r).value; }
+  function calcMens(capital,tauxAnnuel,dureeAns) {
+    const n=dureeAns*12, r=tauxAnnuel/100/12;
+    if(r===0) return capital/n;
+    return capital*(r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
+  }
+  function showPage(id,btn) {
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+    document.getElementById('page-'+id).classList.add('active');
+    btn.classList.add('active');
+  }
+  function setTab(tab,btn) {
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    btn.classList.add('active');
+    const p={immo:{montant:200000,duree:20,taux:3.5},conso:{montant:15000,duree:5,taux:5.5},auto:{montant:25000,duree:7,taux:4.2}}[tab];
+    document.getElementById('montant').value=p.montant; document.getElementById('rMontant').value=p.montant;
+    document.getElementById('duree').value=p.duree; document.getElementById('rDuree').value=p.duree;
+    document.getElementById('taux').value=p.taux; document.getElementById('rTaux').value=p.taux;
+  }
+  function calculate() {
+    const M=parseFloat(document.getElementById('montant').value)||0;
+    const apport=parseFloat(document.getElementById('apport').value)||0;
+    const capital=M-apport;
+    const dureeAns=parseInt(document.getElementById('duree').value)||0;
+    const tauxAnnuel=parseFloat(document.getElementById('taux').value)||0;
+    const assurance=parseFloat(document.getElementById('assurance').value)||0;
+    if(capital<=0||dureeAns<=0||tauxAnnuel<=0){alert('Valeurs invalides.');return;}
+    const n=dureeAns*12, r=tauxAnnuel/100/12;
+    const mensBase=calcMens(capital,tauxAnnuel,dureeAns);
+    const mensTotale=mensBase+assurance;
+    const totalInterets=mensBase*n-capital;
+    const totalAssurance=assurance*n;
+    const coutTotal=mensTotale*n;
+    const teg=tauxAnnuel+(assurance*12/capital)*100;
+    document.getElementById('rMensualite').textContent=fmt(mensTotale);
+    document.getElementById('rMensualiteHors').textContent=fmt(mensBase);
+    document.getElementById('rCoutTotal').textContent=fmt(coutTotal);
+    document.getElementById('rInterets').textContent=fmt(totalInterets);
+    document.getElementById('rCapital').textContent=fmt(capital);
+    document.getElementById('rTEG').textContent=fmtPct(teg);
+    const tot=capital+totalInterets+totalAssurance;
+    const pC=(capital/tot*100).toFixed(1), pI=(totalInterets/tot*100).toFixed(1), pA=(totalAssurance/tot*100).toFixed(1);
+    document.getElementById('pCapital').textContent=pC+' %';
+    document.getElementById('pInterets').textContent=pI+' %';
+    document.getElementById('pAssurance').textContent=pA+' %';
+    setTimeout(()=>{
+      document.getElementById('bCapital').style.width=pC+'%';
+      document.getElementById('bInterets').style.width=pI+'%';
+      document.getElementById('bAssurance').style.width=pA+'%';
+    },100);
+    document.getElementById('assuranceRow').style.display=assurance===0?'none':'block';
+    let restant=capital, rows='';
+    for(let y=1;y<=dureeAns;y++){
+      let capAn=0,intAn=0;
+      for(let m=0;m<12;m++){const i=restant*r,c=mensBase-i;intAn+=i;capAn+=c;restant-=c;if(restant<0)restant=0;}
+      rows+=`<tr><td>An ${y}</td><td>${fmt(mensTotale)}</td><td>${fmt(capAn)}</td><td>${fmt(intAn)}</td><td>${fmt(Math.max(restant,0))}</td></tr>`;
+    }
+    document.getElementById('amortTable').innerHTML=rows;
+    document.getElementById('placeholderState').classList.add('hidden');
+    document.getElementById('resultsContent').classList.remove('hidden');
+    document.getElementById('exportBtn').classList.remove('hidden');
+    document.querySelectorAll('.results-appear').forEach(el=>{el.style.animation='none';el.offsetHeight;el.style.animation='';});
+  }
+  function exportPDF() { window.print(); }
+
+  // FAQ
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+    if(!wasOpen) item.classList.add('open');
+  }
+
+  // COMPARATEUR
+  const COLORS=['#0f0e0c','#c9a84c','#b5451b','#4a6741','#4a7196','#7a4a96','#964a6a'];
+  let banks=[
+    {id:1,name:'BNP Paribas',taux:3.25,frais:500},
+    {id:2,name:'Crédit Agricole',taux:3.45,frais:800},
+    {id:3,name:'Société Générale',taux:3.60,frais:0},
+  ];
+  let bankCounter=4;
+
+  function renderBanks() {
+    const list=document.getElementById('banksList');
+    list.innerHTML='';
+    banks.forEach((b,i)=>{
+      const color=COLORS[i%COLORS.length];
+      const row=document.createElement('div');
+      row.className='bank-row';
+      row.innerHTML=`
+        <div><div class="b-label">Banque</div><input class="bank-input" type="text" value="${b.name}" placeholder="Nom" oninput="updateBank(${b.id},'name',this.value)" style="border-left:3px solid ${color};padding-left:0.8rem"/></div>
+        <div><div class="b-label">Taux annuel</div><div style="position:relative"><input class="bank-input" type="number" value="${b.taux}" min="0.1" max="15" step="0.05" oninput="updateBank(${b.id},'taux',this.value)" style="padding-right:2rem"/><span style="position:absolute;right:0.6rem;top:50%;transform:translateY(-50%);font-size:0.8rem;color:#8a7f72;pointer-events:none">%</span></div></div>
+        <div><div class="b-label">Frais de dossier</div><div style="position:relative"><input class="bank-input" type="number" value="${b.frais||0}" min="0" step="50" oninput="updateBank(${b.id},'frais',this.value)" style="padding-right:2rem"/><span style="position:absolute;right:0.6rem;top:50%;transform:translateY(-50%);font-size:0.8rem;color:#8a7f72;pointer-events:none">€</span></div></div>
+        <div><div class="b-label">Assurance propre</div><div style="position:relative"><input class="bank-input" type="number" value="${b.assuranceOverride!==undefined?b.assuranceOverride:''}" min="0" step="5" placeholder="Commune" oninput="updateBank(${b.id},'assuranceOverride',this.value)" style="padding-right:2rem"/><span style="position:absolute;right:0.6rem;top:50%;transform:translateY(-50%);font-size:0.8rem;color:#8a7f72;pointer-events:none">€</span></div></div>
+        ${banks.length>2?`<button class="del-bank" onclick="removeBank(${b.id})">×</button>`:'<div></div>'}
+      `;
+      list.appendChild(row);
+    });
+  }
+
+  function updateBank(id,field,value) {
+    const b=banks.find(x=>x.id===id); if(!b) return;
+    if(field==='name') b.name=value;
+    else if(field==='assuranceOverride') b.assuranceOverride=value===''?undefined:parseFloat(value);
+    else b[field]=parseFloat(value)||0;
+  }
+
+  function addBank() {
+    if(banks.length>=7){alert('Maximum 7 banques.');return;}
+    banks.push({id:bankCounter++,name:'Nouvelle banque',taux:4.0,frais:0});
+    renderBanks();
+  }
+
+  function removeBank(id) { banks=banks.filter(b=>b.id!==id); renderBanks(); }
+
+  function compare() {
+    const capital=parseFloat(document.getElementById('cMontant').value)||0;
+    const dureeAns=parseInt(document.getElementById('cDuree').value)||0;
+    const assuranceCommune=parseFloat(document.getElementById('cAssurance').value)||0;
+    if(capital<=0||dureeAns<=0){alert('Renseignez le montant et la durée.');return;}
+    const results=banks.map((b,i)=>{
+      const ass=b.assuranceOverride!==undefined?b.assuranceOverride:assuranceCommune;
+      const n=dureeAns*12;
+      const mensBase=calcMens(capital,b.taux,dureeAns);
+      const mensTotale=mensBase+ass;
+      const totalInterets=mensBase*n-capital;
+      const frais=b.frais||0;
+      const coutTotal=mensTotale*n+frais;
+      return{...b,mensBase,mensTotale,totalInterets,frais,coutTotal,color:COLORS[i%COLORS.length]};
+    }).sort((a,b)=>a.coutTotal-b.coutTotal);
+    const worst=results[results.length-1].coutTotal;
+    let rows='';
+    results.forEach((r,i)=>{
+      const eco=worst-r.coutTotal;
+      rows+=`<tr><td style="font-weight:700;color:${r.color}">${i+1}</td><td><span class="bank-color" style="background:${r.color}"></span><strong>${r.name}</strong>${i===0?'<span class="best-badge">✓ Meilleure</span>':''}</td><td class="${i===0?'val-good':i===results.length-1?'val-bad':''}">${fmtPct(r.taux)}</td><td>${fmt(r.mensTotale)}</td><td class="val-bad">${fmt(r.totalInterets)}</td><td style="font-weight:600">${fmt(r.coutTotal)}</td><td class="${eco>0?'val-good':''}">${eco>0?'− '+fmt(eco):'—'}</td></tr>`;
+    });
+    document.getElementById('compTableBody').innerHTML=rows;
+    let bars='';
+    results.forEach(r=>{
+      const pct=(r.coutTotal/worst*100).toFixed(1);
+      bars+=`<div class="comp-bar-row"><div class="comp-bar-label">${r.name}</div><div class="comp-bar-track"><div class="comp-bar-fill" style="width:0%;background:${r.color}" data-w="${pct}"><span>${fmt(r.coutTotal)}</span></div></div></div>`;
+    });
+    document.getElementById('compBars').innerHTML=bars;
+    setTimeout(()=>{document.querySelectorAll('.comp-bar-fill').forEach(el=>{el.style.width=el.dataset.w+'%';});},100);
+    const cr=document.getElementById('compResults');
+    cr.classList.remove('hidden');
+    cr.style.animation='none'; cr.offsetHeight; cr.style.animation='fadeUp 0.5s ease both';
+    document.getElementById('compExportBtn').classList.remove('hidden');
+  }
+
+  renderBanks();
+</script>
+</body>
+</html>
