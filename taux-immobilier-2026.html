@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Taux Immobilier 2026 — Baromètre des Taux de Crédit Immobilier | CalcImmo</title>
+  <meta name="description" content="Découvrez les taux immobiliers en mai 2026 : taux moyen, meilleurs taux par durée et profil. Simulez votre crédit avec les taux actuels du marché."/>
+  <meta name="keywords" content="taux immobilier 2026, taux crédit immobilier mai 2026, meilleur taux immobilier, taux moyen immobilier, baromètre taux immobilier"/>
+  <link rel="canonical" href="https://calcimmo.app/taux-immobilier-2026.html"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Taux Immobilier 2026 — Baromètre des taux de crédit immobilier",
+    "description": "Les taux de crédit immobilier en 2026 par durée et profil emprunteur.",
+    "url": "https://calcimmo.app/taux-immobilier-2026.html",
+    "publisher": { "@type": "Organization", "name": "CalcImmo" }
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f0e0c; --cream: #f5f0e8; --gold: #c9a84c; --gold-light: #e8d5a0;
+      --rust: #b5451b; --sage: #4a6741; --paper: #faf7f2; --border: #d4c9b5;
+      --shadow: rgba(15,14,12,0.12);
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.08) 0%, transparent 60%);
+      pointer-events: none; z-index: 0;
+    }
+    header { position: relative; z-index: 10; padding: 1.2rem 3rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); background: rgba(245,240,232,0.9); backdrop-filter: blur(10px); }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; text-decoration: none; color: var(--ink); }
+    .logo span { color: var(--gold); }
+    .badge { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold-light); padding: 0.3rem 0.8rem; border-radius: 100px; }
+    @media (max-width: 768px) { header { padding: 1rem 1.5rem; } }
+    .breadcrumb { position: relative; z-index: 5; max-width: 860px; margin: 0 auto; padding: 1rem 1.5rem 0; font-size: 0.8rem; color: #8a7f72; }
+    .breadcrumb a { color: var(--gold); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .hero { position: relative; z-index: 5; text-align: center; padding: 3rem 2rem 1.5rem; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; line-height: 1.15; margin-bottom: 0.8rem; }
+    .hero h1 em { font-style: italic; color: var(--gold); }
+    .hero p { font-size: 0.95rem; color: #6b6456; font-weight: 300; max-width: 560px; margin: 0 auto 1.5rem; line-height: 1.7; }
+    .update-badge { display: inline-block; background: rgba(74,103,65,0.1); border: 1px solid rgba(74,103,65,0.3); color: var(--sage); font-size: 0.75rem; font-weight: 500; padding: 0.3rem 0.8rem; border-radius: 100px; margin-bottom: 1rem; }
+    .main-content { position: relative; z-index: 5; max-width: 860px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+    .card { background: var(--paper); border: 1px solid var(--border); border-radius: 2px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 2px 12px var(--shadow); }
+    .card h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--border); }
+    .card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin: 1.5rem 0 0.6rem; }
+    .card p { font-size: 0.95rem; line-height: 1.85; color: #3d3830; margin-bottom: 1rem; }
+    .card p:last-child { margin-bottom: 0; }
+    .taux-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .taux-box { background: white; border: 1px solid var(--border); border-radius: 2px; padding: 1.2rem; text-align: center; }
+    .taux-duree { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #8a7f72; margin-bottom: 0.5rem; }
+    .taux-val { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--ink); margin-bottom: 0.2rem; }
+    .taux-range { font-size: 0.78rem; color: #8a7f72; }
+    .taux-table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: 0.88rem; }
+    .taux-table th { background: var(--ink); color: var(--cream); padding: 0.7rem 1rem; text-align: left; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; }
+    .taux-table td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--border); color: #3d3830; }
+    .taux-table tr:nth-child(even) td { background: rgba(212,201,181,0.15); }
+    .taux-table .good { color: var(--sage); font-weight: 600; }
+    .taux-table .bad { color: var(--rust); }
+    .highlight-box { background: rgba(201,168,76,0.08); border-left: 3px solid var(--gold); padding: 1rem 1.2rem; margin: 1.2rem 0; border-radius: 0 2px 2px 0; }
+    .highlight-box p { margin-bottom: 0; font-size: 0.9rem; color: #5a5040; }
+    .cta-box { background: var(--ink); color: var(--cream); border-radius: 2px; padding: 2rem; text-align: center; margin: 2rem 0; }
+    .cta-box h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .cta-box p { font-size: 0.9rem; color: rgba(245,240,232,0.7); margin-bottom: 1.2rem; }
+    .cta-btn { display: inline-block; background: var(--gold); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.9rem 2rem; border-radius: 2px; text-decoration: none; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.9; }
+    .evolution-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem; padding-bottom: 0.8rem; border-bottom: 1px solid rgba(212,201,181,0.3); }
+    .evolution-row:last-child { border-bottom: none; margin-bottom: 0; }
+    .evo-date { font-size: 0.8rem; color: #8a7f72; width: 80px; flex-shrink: 0; }
+    .evo-taux { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; width: 70px; }
+    .evo-bar { flex: 1; height: 6px; background: var(--border); border-radius: 10px; overflow: hidden; }
+    .evo-fill { height: 100%; background: var(--gold); border-radius: 10px; }
+    .evo-trend { font-size: 0.78rem; width: 60px; text-align: right; }
+    .trend-up { color: var(--rust); }
+    .trend-down { color: var(--sage); }
+    .faq-item { border: 1px solid var(--border); border-radius: 2px; margin-bottom: 0.8rem; overflow: hidden; }
+    .faq-q { width: 100%; background: none; border: none; padding: 1.2rem 1.5rem; text-align: left; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500; color: var(--ink); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .faq-q::after { content: '+'; font-size: 1.3rem; color: var(--gold); flex-shrink: 0; transition: transform 0.2s; }
+    .faq-item.open .faq-q::after { transform: rotate(45deg); }
+    .faq-a { display: none; padding: 0 1.5rem 1.2rem; font-size: 0.9rem; line-height: 1.75; color: #3d3830; border-top: 1px solid var(--border); padding-top: 1rem; }
+    .faq-item.open .faq-a { display: block; }
+    .other-tools { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+    @media (max-width: 600px) { .other-tools { grid-template-columns: 1fr; } .taux-grid { grid-template-columns: 1fr 1fr; } }
+    .tool-link { background: white; border: 1px solid var(--border); border-radius: 2px; padding: 1rem; text-decoration: none; color: var(--ink); display: flex; align-items: center; gap: 0.8rem; transition: border-color 0.2s; }
+    .tool-link:hover { border-color: var(--gold); }
+    .tool-icon { font-size: 1.5rem; }
+    .tool-name { font-size: 0.85rem; font-weight: 500; }
+    .tool-desc { font-size: 0.75rem; color: #8a7f72; }
+    footer { position: relative; z-index: 5; background: var(--ink); color: rgba(245,240,232,0.7); padding: 2rem 3rem; text-align: center; font-size: 0.8rem; line-height: 1.8; }
+    footer a { color: var(--gold-light); text-decoration: none; }
+    footer strong { color: var(--cream); }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="https://calcimmo.app" class="logo">Calc<span>Immo</span></a>
+  <div class="badge">Mis à jour mai 2026</div>
+</header>
+
+<div class="breadcrumb">
+  <a href="https://calcimmo.app">CalcImmo</a> → Taux immobilier 2026
+</div>
+
+<div class="hero">
+  <div class="update-badge">✅ Mis à jour — Mai 2026</div>
+  <h1>Taux immobilier<br><em>mai 2026</em> — Baromètre complet</h1>
+  <p>Retrouvez les taux de crédit immobilier en vigueur en mai 2026, par durée et profil emprunteur. Simulez votre prêt avec les taux actuels du marché.</p>
+</div>
+
+<div class="main-content">
+
+  <!-- Taux actuels -->
+  <div class="card">
+    <h2>Taux moyens en mai 2026</h2>
+    <p>Après deux années de hausse entre 2022 et 2024, les taux de crédit immobilier se stabilisent en 2026 à des niveaux plus accessibles. Voici les taux moyens constatés sur le marché français en mai 2026 :</p>
+
+    <div class="taux-grid">
+      <div class="taux-box">
+        <div class="taux-duree">10 ans</div>
+        <div class="taux-val">2,85%</div>
+        <div class="taux-range">2,40% — 3,20%</div>
+      </div>
+      <div class="taux-box">
+        <div class="taux-duree">15 ans</div>
+        <div class="taux-val">3,10%</div>
+        <div class="taux-range">2,65% — 3,50%</div>
+      </div>
+      <div class="taux-box">
+        <div class="taux-duree">20 ans</div>
+        <div class="taux-val">3,35%</div>
+        <div class="taux-range">2,90% — 3,75%</div>
+      </div>
+      <div class="taux-box">
+        <div class="taux-duree">25 ans</div>
+        <div class="taux-val">3,55%</div>
+        <div class="taux-range">3,10% — 3,95%</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Note :</strong> Ces taux sont des moyennes indicatives constatées sur le marché. Votre taux réel dépend de votre profil emprunteur, de votre apport et de la banque choisie. Utilisez notre simulateur pour calculer vos mensualités avec votre taux.</p>
+    </div>
+  </div>
+
+  <!-- CTA simulateur -->
+  <div class="cta-box">
+    <h3>Simulez votre crédit avec ces taux</h3>
+    <p>Entrez le montant souhaité et calculez vos mensualités, le coût total et le tableau d'amortissement en quelques secondes.</p>
+    <a href="https://calcimmo.app" class="cta-btn">Simuler mon crédit →</a>
+  </div>
+
+  <!-- Taux par profil -->
+  <div class="card">
+    <h2>Taux par profil emprunteur</h2>
+    <p>Les banques différencient leurs taux selon la qualité du dossier. Un profil "excellent" (revenus stables, apport élevé, absence d'incidents) peut obtenir un taux nettement inférieur à la moyenne.</p>
+
+    <table class="taux-table">
+      <thead>
+        <tr><th>Durée</th><th>Excellent dossier</th><th>Bon dossier</th><th>Dossier standard</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>10 ans</td><td class="good">2,40 %</td><td>2,75 %</td><td class="bad">3,20 %</td></tr>
+        <tr><td>15 ans</td><td class="good">2,65 %</td><td>3,00 %</td><td class="bad">3,50 %</td></tr>
+        <tr><td>20 ans</td><td class="good">2,90 %</td><td>3,25 %</td><td class="bad">3,75 %</td></tr>
+        <tr><td>25 ans</td><td class="good">3,10 %</td><td>3,50 %</td><td class="bad">3,95 %</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Qu'est-ce qu'un bon dossier ?</h3>
+    <p>Les critères qui font la différence aux yeux des banques : un apport personnel d'au moins 20% du prix du bien, des revenus stables depuis plus de 2 ans (CDI ou fonctionnaire), un taux d'endettement actuel inférieur à 20%, l'absence d'incidents bancaires sur les 12 derniers mois, et une épargne résiduelle après l'achat. Cumuler ces critères peut vous faire économiser 0,5 à 1 point sur votre taux.</p>
+  </div>
+
+  <!-- Évolution des taux -->
+  <div class="card">
+    <h2>Évolution des taux sur 20 ans (2022–2026)</h2>
+    <p>Pour comprendre où en sont les taux en 2026, voici leur évolution depuis la période de taux bas historiques :</p>
+
+    <div style="margin: 1.5rem 0;">
+      <div class="evolution-row">
+        <span class="evo-date">Jan 2022</span>
+        <span class="evo-taux">1,10%</span>
+        <div class="evo-bar"><div class="evo-fill" style="width:18%"></div></div>
+        <span class="evo-trend" style="color:#8a7f72">Bas hist.</span>
+      </div>
+      <div class="evolution-row">
+        <span class="evo-date">Jan 2023</span>
+        <span class="evo-taux">2,55%</span>
+        <div class="evo-bar"><div class="evo-fill" style="width:43%"></div></div>
+        <span class="evo-trend trend-up">↑ +1,45</span>
+      </div>
+      <div class="evolution-row">
+        <span class="evo-date">Jan 2024</span>
+        <span class="evo-taux">4,20%</span>
+        <div class="evo-bar"><div class="evo-fill" style="width:70%"></div></div>
+        <span class="evo-trend trend-up">↑ +1,65</span>
+      </div>
+      <div class="evolution-row">
+        <span class="evo-date">Jan 2025</span>
+        <span class="evo-taux">3,80%</span>
+        <div class="evo-bar"><div class="evo-fill" style="width:63%"></div></div>
+        <span class="evo-trend trend-down">↓ -0,40</span>
+      </div>
+      <div class="evolution-row">
+        <span class="evo-date">Mai 2026</span>
+        <span class="evo-taux">3,35%</span>
+        <div class="evo-bar"><div class="evo-fill" style="width:56%"></div></div>
+        <span class="evo-trend trend-down">↓ -0,45</span>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Tendance 2026 :</strong> Après le pic de fin 2023 / début 2024, les taux baissent progressivement depuis mi-2024 grâce aux baisses successives des taux directeurs de la BCE. Les experts anticipent une poursuite de cette baisse modérée en 2026, avec des taux sur 20 ans qui pourraient atteindre 3,00% d'ici fin 2026.</p>
+    </div>
+  </div>
+
+  <!-- Taux par banque -->
+  <div class="card">
+    <h2>Taux par établissement bancaire</h2>
+    <p>Les taux varient sensiblement d'une banque à l'autre. Voici une estimation des taux pratiqués sur 20 ans pour un profil standard en mai 2026 :</p>
+
+    <table class="taux-table">
+      <thead>
+        <tr><th>Établissement</th><th>Taux 20 ans</th><th>Frais de dossier</th><th>Points forts</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Crédit Agricole</td><td>3,25 %</td><td>800 €</td><td>Réseau dense, primo-accédants</td></tr>
+        <tr><td>BNP Paribas</td><td>3,30 %</td><td>500 €</td><td>Flexibilité, modularité</td></tr>
+        <tr><td>Société Générale</td><td>3,35 %</td><td>0 €</td><td>Sans frais de dossier</td></tr>
+        <tr><td>LCL</td><td>3,40 %</td><td>700 €</td><td>Bons profils cadres</td></tr>
+        <tr><td>Banque Postale</td><td>3,45 %</td><td>500 €</td><td>Fonctionnaires, PTZ</td></tr>
+        <tr><td>Courtier (ex: Meilleurtaux)</td><td class="good">2,90 %</td><td>0 – 1500 €</td><td>Meilleur taux négocié</td></tr>
+      </tbody>
+    </table>
+
+    <p>Ces taux sont indicatifs et peuvent varier selon votre profil. Utilisez notre comparateur pour simuler l'impact de chaque taux sur vos mensualités et le coût total de votre crédit.</p>
+  </div>
+
+  <!-- Conseils -->
+  <div class="card">
+    <h2>Conseils pour obtenir le meilleur taux en 2026</h2>
+
+    <h3>1. Passez par un courtier</h3>
+    <p>Un courtier immobilier négocie pour vous auprès de plusieurs banques simultanément. En 2026, passer par un courtier permet généralement d'obtenir un taux inférieur de 0,2 à 0,5 point par rapport à une négociation directe. Les honoraires (0 à 1% du montant emprunté) sont souvent largement compensés par les économies réalisées.</p>
+
+    <h3>2. Augmentez votre apport</h3>
+    <p>Chaque tranche de 5% d'apport supplémentaire peut améliorer votre taux de 0,1 à 0,2 point. Un apport de 20% est généralement le seuil qui débloque les meilleures conditions. Si possible, mobilisez votre épargne salariale (PEE, PERCO) ou demandez une donation familiale.</p>
+
+    <h3>3. Négociez les frais annexes</h3>
+    <p>Au-delà du taux nominal, négociez les frais de dossier (souvent négociables jusqu'à 0€), les pénalités de remboursement anticipé (demandez leur suppression), et la modularité des mensualités (possibilité de les moduler à la hausse ou à la baisse en cas de changement de situation).</p>
+
+    <h3>4. Comparez le TAEG, pas le taux nominal</h3>
+    <p>Le TAEG (Taux Annuel Effectif Global) inclut tous les frais obligatoires et permet une comparaison réelle entre les offres. Une offre avec un taux nominal bas mais des frais élevés peut revenir plus cher qu'une offre avec un taux légèrement plus élevé mais sans frais.</p>
+  </div>
+
+  <!-- CTA simulateur -->
+  <div class="cta-box">
+    <h3>Comparez l'impact de différents taux</h3>
+    <p>Notre comparateur multi-banques vous permet de visualiser d'un coup d'œil quelle offre vous coûte le moins cher sur la durée totale.</p>
+    <a href="https://calcimmo.app" class="cta-btn">Comparer les banques →</a>
+  </div>
+
+  <!-- FAQ -->
+  <div class="card">
+    <h2>Questions fréquentes sur les taux immobiliers 2026</h2>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Les taux vont-ils encore baisser en 2026 ?</button>
+      <div class="faq-a">La tendance est à la baisse progressive depuis mi-2024, portée par les décisions de la BCE. Les économistes anticipent une poursuite de cette baisse modérée en 2026, avec des taux sur 20 ans qui pourraient atteindre 3,00% d'ici fin 2026. Cependant, l'évolution reste incertaine et dépend notamment de l'inflation en zone euro et des décisions de politique monétaire.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Vaut-il mieux acheter maintenant ou attendre une baisse des taux ?</button>
+      <div class="faq-a">Attendre une baisse des taux présente un risque : si les prix de l'immobilier remontent en même temps que les taux baissent, le bénéfice est nul. De plus, les loyers payés pendant l'attente représentent un coût réel. En règle générale, si votre projet est solide et votre capacité d'emprunt suffisante, il est souvent préférable d'acheter au bon moment de vie plutôt qu'au bon moment du marché.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Comment est fixé le taux de mon crédit immobilier ?</button>
+      <div class="faq-a">Les banques se basent principalement sur les taux des Obligations Assimilables du Trésor (OAT) à 10 ans, qui servent de référence au marché obligataire français. À ce taux de référence, elles ajoutent une marge commerciale qui dépend de leur stratégie et de la qualité de votre dossier. Les taux directeurs de la BCE influencent également les conditions de refinancement des banques.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Qu'est-ce que le taux d'usure ?</button>
+      <div class="faq-a">Le taux d'usure est le taux maximum légal au-delà duquel une banque ne peut pas vous prêter. Il est fixé chaque trimestre par la Banque de France et correspond à 1,33 fois le taux effectif moyen pratiqué. Son rôle est de protéger les emprunteurs contre des taux excessifs. En 2026, le taux d'usure sur 20 ans et plus est d'environ 5,5%, ce qui laisse une marge confortable par rapport aux taux de marché actuels.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">0,3% de différence sur le taux, ça représente combien ?</button>
+      <div class="faq-a">Sur un prêt de 200 000€ sur 20 ans, un écart de 0,3% sur le taux représente environ 6 000€ d'économie sur la durée totale du crédit. Cela se traduit par environ 25€ de mensualité en moins. C'est pourquoi la négociation et la mise en concurrence des banques est essentielle — utilisez notre comparateur pour visualiser précisément l'impact de différents taux.</div>
+    </div>
+  </div>
+
+  <!-- Autres outils -->
+  <div class="card">
+    <h2>Nos autres outils gratuits</h2>
+    <div class="other-tools">
+      <a href="https://calcimmo.app" class="tool-link">
+        <span class="tool-icon">🏠</span>
+        <div>
+          <div class="tool-name">CalcImmo — Simulateur crédit</div>
+          <div class="tool-desc">Mensualités, tableau d'amortissement, comparateur banques</div>
+        </div>
+      </a>
+      <a href="https://calcsalaire.app" class="tool-link">
+        <span class="tool-icon">💶</span>
+        <div>
+          <div class="tool-name">CalcSalaire — Salaire net/brut</div>
+          <div class="tool-desc">Convertisseur brut/net, simulateur d'augmentation</div>
+        </div>
+      </a>
+      <a href="https://calcimpot.app" class="tool-link">
+        <span class="tool-icon">🧾</span>
+        <div>
+          <div class="tool-name">CalcImpôt — Impôt sur le revenu</div>
+          <div class="tool-desc">Barème 2026, quotient familial, réductions d'impôt</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <strong>CalcImmo</strong> — Simulateur de crédit immobilier gratuit<br>
+  Les taux présentés sont indicatifs et mis à jour mensuellement. Consultez un courtier ou votre banque pour une offre personnalisée.<br>
+  <span style="margin-top:0.5rem;display:inline-block;">
+    <a href="https://calcimmo.app">Simulateur</a> · <a href="#">Mentions légales</a> · <a href="#">Contact</a>
+  </span>
+</footer>
+
+<script>
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if(!wasOpen) item.classList.add('open');
+  }
+</script>
+</body>
+</html>
